@@ -1,6 +1,5 @@
-#!/usr/bin/env php
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-(new Mk4U\App)->cli($argc, $argv);
+(new Mk4U\App)->run();
