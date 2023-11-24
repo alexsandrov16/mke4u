@@ -1,2 +1,2 @@
-# mk4u
-A lightweight, easy to use CMS built with PHP
+# Mk4U
+A lightweight flat file CMS written with PHP, currently in the development stage.
