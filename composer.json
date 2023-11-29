@@ -15,7 +15,7 @@
         "psr-4": {
             "Mk4U\\": "src/"
         },
-        "files": ["src/Core/functions.php"]
+        "files": ["src/Core/helpers.php"]
     },
     "authors": [
         {
