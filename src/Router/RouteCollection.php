@@ -123,7 +123,7 @@ class RouteCollection
     /**
      * Depurar con vardump
      */
-    public function __debugInfo()
+    public function __debugInfo(): array
     {
         return $this->all();
     }
