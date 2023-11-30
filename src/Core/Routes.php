@@ -2,10 +2,12 @@
 
 namespace Mk4U\Core;
 
+use Mk4U\Router\RouteCollection;
+
 /**
  * Routes class
  */
-class Routes
+class Routes extends RouteCollection
 {
     
 }
