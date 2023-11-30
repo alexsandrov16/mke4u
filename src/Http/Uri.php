@@ -58,7 +58,7 @@ class Uri
     public function setHost(string $host = ''): static
     {
         if (strpos($host, ':') != false) {
-            $host = explode(':',$host)[0];
+            $host = explode(':', $host)[0];
         }
         $this->host = $host;
         return $this;
@@ -180,6 +180,32 @@ class Uri
     public  function  getFragment(): string
     {
         return $this->fragment;
+    }
+
+    /**
+     * Recuperar el componente de autoridad del URI.
+     *
+     * Si no hay información de autoridad presente, este método DEBE devolver un valor vacío cadena.
+     *
+     * La sintaxis de autoridad del URI es:
+     *
+     * <pre>
+     * [información-usuario@]host[:puerto]
+     * </pre>
+     *
+     * Si el componente del puerto no está configurado o es el puerto estándar para el actual
+     * esquema, NO DEBE incluirse.
+     *
+     * @see https://tools.ietf.org/html/rfc3986#section-3.2
+     * @return string La autoridad URI, en formato "[user-info@]host[:port]".
+     */
+    public function getAuthority(): string
+    {
+        $auth = $this->getScheme() . '://' . $this->getHost();
+        if ($this->getPort() != null) {
+            $auth .= ':' . $this->getPort();
+        }
+        return $auth;
     }
 
     /** 
