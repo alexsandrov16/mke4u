@@ -20,6 +20,9 @@ final class App
     public const VERSION = '0.4 alpha';
     private const sysCFG = STORAGE . 'system.json';
     private bool $debug;
+    private string $i18n;
+    private bool $secure;
+    private bool $logs;
 
     public function __construct()
     {
@@ -32,7 +35,15 @@ final class App
      */
     public function __debugInfo(): array
     {
-        return [];
+        return [
+            //'site'      => $this->site(),
+            'urls'      => url(),
+            'languages' => $this->i18n,
+            'secure'   => $this->secure,
+            'debug'   => $this->debug,
+            'logs'     => $this->logs,
+            'version'   => self::VERSION,
+        ];
     }
 
     /**
@@ -85,13 +96,14 @@ final class App
 
         $sys = FileSystem::getJson(self::sysCFG);
 
-        //Establece visualizacion de errores
+        //Establece variables de configuracion
         $this->debug = $sys->debug;
+        $this->i18n = $sys->lang;
+        $this->secure = $sys->force_ssl;
+        $this->logs = $sys->logs;
 
         //Establecer zona horaria
         date_default_timezone_set($sys->timezone);
-
-
 
         //Carga Contenedor
         Container::init([
