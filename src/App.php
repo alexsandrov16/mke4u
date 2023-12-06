@@ -26,6 +26,9 @@ final class App
 
     public function __construct()
     {
+        //Inicializar buffer
+        $this->buffering();
+
         //Cargar configuracion de la aplicacion
         $this->loadConfig();
     }
@@ -53,11 +56,7 @@ final class App
     {
         $this->handlerError();
         //implementacion del enrutador
-        try {
-            Router::resolve(services('routes'));
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        $this->output(Router::resolve(services('routes')));
     }
 
     /**
@@ -82,6 +81,9 @@ final class App
         } else {
             $handler = PlainTextHandler::class;
         }
+
+        //verificar nivel buffer
+        if (ob_get_level()) ob_clean();
 
         $whoops = new Run;
         $whoops->pushHandler(new $handler);
@@ -109,5 +111,21 @@ final class App
         Container::init([
             'routes' => Routes::class
         ]);
+    }
+
+    /**
+     * Activar almacenamiento en el buffer
+     */
+    private function buffering() : void
+    {
+        ob_start();
+    }
+
+    /**
+     * 
+     */
+    private function output($content) : void
+    {
+        ob_get_flush();
     }
 }
