@@ -52,11 +52,18 @@ final class App
     /**
      * Ejecuta la web app
      */
-    public function run() //: Returntype
+    public function run(): void
     {
         $this->handlerError();
+    
         //implementacion del enrutador
-        $this->output(Router::resolve(services('routes')));
+        try {
+            $content = Router::resolve(services('routes'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        $this->output($content);
     }
 
     /**
@@ -66,7 +73,7 @@ final class App
     {
         if (PHP_SAPI == 'cli') {
             $this->handlerError(PHP_SAPI);
-            echo new Cli . PHP_EOL;
+            $this->output(new Cli);
         }
     }
 
@@ -116,16 +123,22 @@ final class App
     /**
      * Activar almacenamiento en el buffer
      */
-    private function buffering() : void
+    private function buffering(): void
     {
         ob_start();
     }
 
     /**
-     * 
+     * Vaciar buffer
      */
-    private function output($content) : void
+    private function output($content): void
     {
-        ob_get_flush();
+        if (ob_get_length() != 0) {
+            flush();
+        } else {
+            echo $content;
+        }
+
+        ob_end_flush();
     }
 }
