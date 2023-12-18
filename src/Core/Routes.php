@@ -14,7 +14,7 @@ class Routes extends RouteCollection
     public function __construct()
     {
         $this->get('/', function (Request $request,Response $response) {
-            return $response::html("Hello Mk4U!!!");
+            return $response::json(['message'=>'🥳 Welcome to Mk4U']);
         });
 
         return parent::class;
