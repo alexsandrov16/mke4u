@@ -79,10 +79,11 @@ class Session
     }
 
     /**
-     * Destruye la ssesion con todos sus datos
+     * Destruye la sesion con todos sus datos
      */
     public static function destroy() : void
     {
+        session_unset();
         session_destroy();
     }
 }
