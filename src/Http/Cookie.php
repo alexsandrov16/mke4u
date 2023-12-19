@@ -30,14 +30,19 @@ class Cookie
     }
 
     /**
-     * Obtiene una cookie
+     * Obtiene valores de $_COOKIE
      */
-    public static function get(string $name): mixed
+    public static function get(?string $name = null): mixed
     {
-        if (self::has($name)) {
-            return $_COOKIE[$name];
+        if (is_null($name)) {
+            return $_COOKIE;
         }
-        throw new RuntimeException(sprintf("No existe una cookie con el nombre '%s'", $name));
+
+        if (self::has($name) == false) {
+            throw new RuntimeException(sprintf("No existe una cookie con el nombre '%s'", $name));
+        }
+
+        return $_COOKIE[$name];
     }
 
     /**
@@ -50,7 +55,7 @@ class Cookie
 
     /**
      * Obtiene todas las cookies
-     */
+     *//*
     public static function all(): array
     {
         return $_COOKIE;
