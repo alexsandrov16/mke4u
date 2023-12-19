@@ -31,7 +31,7 @@ class Router
      */
     public static function resolve(RouteCollection $Route) : Response
     {
-        self::$request = new Request;
+        self::$request = new Request();
         self::$response = new Response();
 
         foreach ($Route->all() as $route => $value) {

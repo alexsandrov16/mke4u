@@ -33,17 +33,19 @@ if (!file_exists('url')) {
     {
         $request = new Request;
         $base = $request->getUri()->getAuthority();
-
-        //Devuelve url base
-        if (empty($url)) return $base;
+        
+        // Agrega las path a la url base
+        $search = dirname($request->server('SCRIPT_NAME'));
+        $url = ltrim($url, '/');
 
         //Devuelve url pasada
         if (preg_match("~^https?://~i", $url)) return $url;
 
-        // Agrega las path a la url base
-        $search = dirname($request->server('SCRIPT_NAME'));
-        $url = ltrim($url,'/');
         if (stripos(rtrim($request->getTarget(), '/'), $search) !== false) {
+
+            //Devuelve url base
+            if (empty($url)) return $base.$search;
+
             return $base . $search . '/' . $url;
         }
         return "$base/$url";
