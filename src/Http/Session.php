@@ -23,7 +23,7 @@ class Session
                 "cookie_secure"=>true,
                 "use_strict_mode" => true,
                 //"delete_old_session"=>true,
-                'read_and_close'  => true,
+                //'read_and_close'  => true,
             ]);
         }
     }
@@ -73,7 +73,7 @@ class Session
     /**
      * Genera un nuevo ID de session
      */
-    public static function generateID() : void
+    public static function renewID() : void
     {
         session_regenerate_id();
     }
@@ -85,5 +85,13 @@ class Session
     {
         session_unset();
         session_destroy();
+    }
+
+    /**
+     * Devuelve el id de la session
+     */
+    public static function id() : string
+    {
+        return session_id();
     }
 }
