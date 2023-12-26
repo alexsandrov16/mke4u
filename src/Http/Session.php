@@ -63,7 +63,7 @@ class Session
     }
 
     /**
-     * Verifica si existe una seesion dada
+     * Verifica si existe una session dada
      */
     public static function has(string $name): bool
     {
@@ -73,7 +73,7 @@ class Session
     /**
      * Genera un nuevo ID de session
      */
-    public static function renewID() : void
+    public static function renewId() : void
     {
         session_regenerate_id();
     }
