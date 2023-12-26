@@ -73,7 +73,7 @@ class Session
     /**
      * Genera un nuevo ID de session
      */
-    public static function renewID() : void
+    public static function renewId() : void
     {
         session_regenerate_id();
     }
