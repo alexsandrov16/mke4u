@@ -63,7 +63,7 @@ class Session
     }
 
     /**
-     * Verifica si existe una seesion dada
+     * Verifica si existe una session dada
      */
     public static function has(string $name): bool
     {
