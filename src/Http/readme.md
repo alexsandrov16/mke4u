@@ -1,6 +1,8 @@
 ## Uso
 
-El módulo Http viene con un montón de paquetes que te ayudan a gestionar la entrada y salida de tu app o API. Este módulo viene con la funcionalidad relacionada con Http más usada como peticiones, respuestas y demás.
+El módulo **mk4u/http** viene con un montón de paquetes que te ayudan a gestionar la entrada y salida de tu app o API. Este módulo viene con la funcionalidad relacionada con Http más usada como peticiones, respuestas y demás. Para la creación de nuestra capa HTTP nos basamos en el éstandar [PSR-7](https://www.php-fig.org/psr/psr-7/), no nos esforzamos por la compatibilidad con esta recomendación.
+
+### Client
 
 ### Cookies
 
@@ -30,6 +32,8 @@ if(Cookie::has($name) == true)
 ```php
 Cookie::remove($name);
 ```
+
+### File
 
 ### Header
 
@@ -93,6 +97,8 @@ return $http->getBody();
 ```php
 $http->setBody($name);
 ```
+
+### HttpStatusCode
 
 ### Request
 
@@ -158,11 +164,12 @@ $request->setUri($uri, $preserv_host);
 var_dump($request);
 ```
 
+
 ### Response
 
 ```Mk4U\Http\Response``` proporciona una forma orientada a objetos de interactuar con la respuesta HTTP actual.
 
-- Representación de una respuesta saliente del lado del servidor
+- Representación de una respuesta saliente del lado del servidor.
 ```php
 $response = new Response($content, 200, $headers, $protocolVersion);
 
@@ -221,6 +228,57 @@ return $response::html('<h1>Hola mundo</h1>', 201);
 
 return $response::html('<h1>Hola mundo</h1>', 100, ['Content-Length'=>28]);
 ```
+
+### Session
+
+```Mk4u\Http\Session``` no es más que una abstracción para el trabajo con sesiones dentro de **mk4u/http**.
+
+- Inicializar la sesión.
+```php
+Session::start();
+```
+
+- Devuelve el id de la sesión.
+```php
+echo Session::id();
+```
+
+- Genera un nuevo id de sesión.
+```php
+Session::renewId();
+```
+
+- Establece valores para la sesión en la superglobal $_SESSION.
+```php
+Session::set('username','Al3x5');
+```
+
+- Obtener valores de la sesión en la superglobal $_SESSION.
+En caso de no pasar argumentos en ```Session::get()``` se devuelve la superglobal ```$_SESSION[]```.
+```php
+echo Session::get('username'); //Al3x5
+
+var_dump(Session::get()); //array(1) { ["username"]=> string(5) "Al3x5" } 
+```
+
+- Elimina valores en la superglobal $_SESSION.
+```php
+Session::remove('username');
+
+echo Session::get('username'); //Notice undefined index: username
+```
+
+- Verifica si existe un valor dado en la superglobal $_SESSION, retorna un valor boleano.
+```php
+Session::has('username');
+```
+
+- Destruye la sesión con todos sus datos.
+```php
+Session::destroy();
+```
+
+### Stream
 
 ### Uri
 
