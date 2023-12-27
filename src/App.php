@@ -60,7 +60,7 @@ final class App
         try {
             $content = Router::resolve(services('routes'));
         } catch (\Throwable $th) {
-            //throw $th;
+            $content = 'error 404';
         }
 
         $this->output($content);
