@@ -2,7 +2,7 @@
 
 namespace Mk4U\Router;
 
-use Mk4U\Exceptions\HttpExceptions;
+use Mk4U\Http\Exceptions\HttpExceptions;
 use Mk4U\Http\Request;
 use Mk4U\Http\Response;
 
@@ -46,10 +46,10 @@ class Router
                     //Controllers Instances
                     return self::getController($value['action'], self::setParameters($matchs));
                 }
-                throw new HttpExceptions(405);
+                throw HttpExceptions::methodNotAllowed();
             }
         }
-        throw new HttpExceptions(404);
+        throw HttpExceptions::notFound();
     }
 
 
