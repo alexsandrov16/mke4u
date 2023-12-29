@@ -7,7 +7,7 @@ use Mk4U\Http\Response;
 use RuntimeException;
 
 /**
- * undocumented class
+ * HttpExceptions class
  */
 class HttpExceptions extends Exception
 {
