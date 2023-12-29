@@ -117,7 +117,7 @@ class Response
 
     use Header;
 
-    public function __construct(mixed $content = "", int|array $status = 200, array $headers = [], string $version = null)
+    public function __construct(mixed $content = "", object|array $status = HttpStatus::Ok, array $headers = [], string $version = null)
     {
         if (!is_null($version)) {
             $this->setProtocolVersion($version);
@@ -128,7 +128,7 @@ class Response
             $this->setStatus($status[0], $status[1]);
         } else {
             //especifica el codigo de estado con la frase de motivo por defecto
-            $this->setStatus($status);
+            $this->setStatus($status->value);
         }
 
         //establecer cabeceras
@@ -192,7 +192,7 @@ class Response
         }
 
         $this->code = $code;
-        $this->phrase = empty($reasonPhrase) ? self::STATUS[$code] : $reasonPhrase;
+        $this->phrase = empty($reasonPhrase) ? HttpStatus::code($code) : $reasonPhrase;
 
         return $this;
     }
@@ -232,7 +232,7 @@ class Response
     /**
      * Devuelve cuerpo del mensaje como JSON
      */
-    public static function json(array|object $content, int|array $status = 200, array $headers = []): static
+    public static function json(array|object $content, object|array $status = HttpStatus::Ok, array $headers = []): static
     {
         $headers['content-type'] = 'application/json';
         return new static(json_encode($content, JSON_PRETTY_PRINT), $status, $headers);
@@ -241,7 +241,7 @@ class Response
     /**
      * Devuelve cuerpo del mensaje como texto plano
      */
-    public static function plain(string $content, int|array $status = 200, array $headers = []): static
+    public static function plain(string $content, object|array $status = HttpStatus::Ok, array $headers = []): static
     {
         $headers['content-type'] = 'text/plain';
         return new static($content, $status, $headers);
@@ -250,7 +250,7 @@ class Response
     /**
      * Devuelve cuerpo del mensaje como HTML
      */
-    public static function html(string $content, int|array $status = 200, array $headers = []): static
+    public static function html(string $content, object|array $status = HttpStatus::Ok, array $headers = []): static
     {
         $headers['content-type'] = 'text/html';
         return new static($content, $status, $headers);
