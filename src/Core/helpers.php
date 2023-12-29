@@ -56,7 +56,7 @@ if (!function_exists('view')) {
     /**
      * Renderiza la vista 
      */
-    function view(string $filename, ?array $data=null): void
+    function view(string $filename, ?array $data=null): string
     {
         if (!is_readable($filename)) {
             throw new RuntimeException(sprintf("No se encontro la plantilla %s",$filename));
@@ -69,5 +69,6 @@ if (!function_exists('view')) {
         }
 
         include $filename;
+        return '';
     }
 }
