@@ -3,6 +3,7 @@
 namespace Mk4U\Router;
 
 use Mk4U\Http\Exceptions\HttpExceptions;
+use Mk4U\Http\HttpStatus;
 use Mk4U\Http\Request;
 use Mk4U\Http\Response;
 
@@ -29,7 +30,7 @@ class Router
     /**
      * Resuelve la ruta y procesa la acción
      */
-    public static function resolve(RouteCollection $Route) : Response
+    public static function resolve(RouteCollection $Route): Response
     {
         self::$request = new Request();
         self::$response = new Response();
@@ -46,10 +47,10 @@ class Router
                     //Controllers Instances
                     return self::getController($value['action'], self::setParameters($matchs));
                 }
-                throw HttpExceptions::methodNotAllowed();
+                throw new HttpExceptions(HttpStatus::MethodNotAllowed);
             }
         }
-        throw HttpExceptions::notFound();
+        throw new HttpExceptions(HttpStatus::NotFound);
     }
 
 
