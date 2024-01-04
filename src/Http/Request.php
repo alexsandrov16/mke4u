@@ -156,7 +156,7 @@ class Request
             return $_GET;
         }
 
-        //Si existe la cabecera
+        //Si existe la cabecera /form-xx devolver datos pasados por formulario(POST)
         if (in_array($this->getHeader('content-type'), $this->content_type)) {
             return $_POST;
         }

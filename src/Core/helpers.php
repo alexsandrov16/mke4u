@@ -14,7 +14,7 @@ if (!function_exists('services')) {
      * Inyector de dependencias basico de mk4u
      * 
      * @param string $service id del servicio solicitado
-     * @param $params parametros para la instanciacion del servicio
+     * @param mixed $params parametros para la instanciacion del servicio
      */
     function services(string $service, ...$params): object
     {
@@ -22,7 +22,7 @@ if (!function_exists('services')) {
     }
 }
 
-if (!file_exists('url')) {
+if (!function_exists('url')) {
     /**
      * Establecer url base
      * 
@@ -34,18 +34,41 @@ if (!file_exists('url')) {
         $request = new Request;
         $base = $request->getUri()->getAuthority();
 
-        //Devuelve url base
-        if (empty($url)) return $base;
+        // Agrega las path a la url base
+        $search = dirname($request->server('SCRIPT_NAME'));
+        $url = ltrim($url, '/');
 
         //Devuelve url pasada
         if (preg_match("~^https?://~i", $url)) return $url;
 
-        // Agrega las path a la url base
-        $search = dirname($request->server('SCRIPT_NAME'));
-        $url = ltrim($url,'/');
         if (stripos(rtrim($request->getTarget(), '/'), $search) !== false) {
+
+            //Devuelve url base
+            if (empty($url)) return $base . $search;
+
             return $base . $search . '/' . $url;
         }
         return "$base/$url";
+    }
+}
+
+if (!function_exists('view')) {
+    /**
+     * Renderiza la vista 
+     */
+    function view(string $filename, ?array $data=null): string
+    {
+        if (!is_readable($filename)) {
+            throw new RuntimeException(sprintf("No se encontro la plantilla %s",$filename));
+        }
+
+        if (!empty($data)) {
+            foreach ($data as $key => $value) {
+                $$key=$value;
+            }
+        }
+
+        include $filename;
+        return '';
     }
 }

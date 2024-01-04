@@ -1,7 +1,11 @@
 composer.phar
 /vendor/
+<<<<<<< HEAD
 
 mk4u.php
+=======
+index.*
+>>>>>>> 06c694d7c8e57802a3a0c8bd8fb75eddf213628c
 storage/
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
