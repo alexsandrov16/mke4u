@@ -30,7 +30,7 @@ class Response
 
     use Header;
 
-    public function __construct(mixed $content = "", object|array $status = HttpStatus::Ok, array $headers = [], string $version = null)
+    public function __construct(mixed $content = "", HttpStatus|array $status = HttpStatus::Ok, array $headers = [], string $version = null)
     {
         if (!is_null($version)) {
             $this->setProtocolVersion($version);
@@ -145,7 +145,7 @@ class Response
     /**
      * Devuelve cuerpo del mensaje como JSON
      */
-    public static function json(array|object $content, object|array $status = HttpStatus::Ok, array $headers = []): static
+    public static function json(array|object $content, HttpStatus|array $status = HttpStatus::Ok, array $headers = []): static
     {
         $headers['content-type'] = 'application/json';
         return new static(json_encode($content, JSON_PRETTY_PRINT), $status, $headers);
@@ -154,7 +154,7 @@ class Response
     /**
      * Devuelve cuerpo del mensaje como texto plano
      */
-    public static function plain(string $content, object|array $status = HttpStatus::Ok, array $headers = []): static
+    public static function plain(string $content, HttpStatus|array $status = HttpStatus::Ok, array $headers = []): static
     {
         $headers['content-type'] = 'text/plain';
         return new static($content, $status, $headers);
@@ -163,7 +163,7 @@ class Response
     /**
      * Devuelve cuerpo del mensaje como HTML
      */
-    public static function html(string $content, object|array $status = HttpStatus::Ok, array $headers = []): static
+    public static function html(string $content, HttpStatus|array $status = HttpStatus::Ok, array $headers = []): static
     {
         $headers['content-type'] = 'text/html';
         return new static($content, $status, $headers);
