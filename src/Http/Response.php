@@ -105,7 +105,7 @@ class Response
         }
 
         $this->code = $code;
-        $this->phrase = empty($reasonPhrase) ? HttpStatus::code($code) : $reasonPhrase;
+        $this->phrase = empty($reasonPhrase) ? HttpStatus::phrase($code) : $reasonPhrase;
 
         return $this;
     }

@@ -161,7 +161,7 @@ enum HttpStatus: int
     /**
      * Devuelve la frase en dependencia del codigo pasado
      */
-    public static function code(int $code): string
+    public static function phrase(int $code): string
     {
         return match ($code) {
             self::Continue->value                      => self::Continue->message(),
