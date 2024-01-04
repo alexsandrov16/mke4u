@@ -1,9 +1,0 @@
-#!/usr/bin/env php
-<?php
-
-if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
-    die('Ejecute composer install para instalar las dependecias de Mk4U'.PHP_EOL);
-}
-require_once __DIR__ . '/vendor/autoload.php';
-
-(new Mk4U\App)->cli($argc, $argv);
