@@ -7,6 +7,7 @@ use Mk4U\Core\Container;
 use Mk4U\Core\Error;
 use Mk4U\Core\FileSystem;
 use Mk4U\Core\Routes;
+use Mk4U\Http\Exceptions\HttpExceptions;
 use Mk4U\Router\Router;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
@@ -55,12 +56,12 @@ final class App
     public function run(): void
     {
         $this->handlerError();
-    
+
         //implementacion del enrutador
         try {
             $content = Router::resolve(services('routes'));
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (HttpExceptions $e) {
+            $content = $e->render();
         }
 
         $this->output($content);
@@ -69,7 +70,7 @@ final class App
     /**
      * Ejecuta la cli app
      */
-    public function cli(int $argc, array $argv) //: Returntype
+    public function cli(int $argc, array $argv) : void
     {
         if (PHP_SAPI == 'cli') {
             $this->handlerError(PHP_SAPI);
@@ -131,7 +132,7 @@ final class App
     /**
      * Vaciar buffer
      */
-    private function output($content): void
+    private function output(mixed $content): void
     {
         if (ob_get_length() != 0) {
             flush();
