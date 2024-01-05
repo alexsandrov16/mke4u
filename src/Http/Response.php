@@ -28,7 +28,7 @@ class Response
     /** @param string frase de motivo de respuesta asociada con el código de estado*/
     protected string $phrase;
 
-    use Header;
+    use Message;
 
     public function __construct(mixed $content = "", HttpStatus|array $status = HttpStatus::Ok, array $headers = [], string $version = null)
     {

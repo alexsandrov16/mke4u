@@ -22,7 +22,7 @@ class Request
     /** @param array datos pasados por formulario(POST) */
     private array $content_type = ['application/x-www-form-urlencoded', 'multipart/form-data'];
 
-    use Header;
+    use Message;
 
     public function __construct()
     {
@@ -129,8 +129,9 @@ class Request
      * @return static
      * @throws \InvalidArgumentException si se proporciona una estructura no válida.
      */
-    public function withUploadedFiles(array $uploadedFiles)
+    public function uploadedFiles(array $uploadedFiles)
     {
+        
     }
 
     /**

@@ -3,9 +3,9 @@
 namespace Mk4U\Http;
 
 /**
- * Header Trait
+ * Message Trait
  */
-trait Header
+trait Message
 {
     /** @param string version del protocolo http*/
     protected string $version = '1.1';
